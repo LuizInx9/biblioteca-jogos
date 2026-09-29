@@ -6,6 +6,10 @@ public class Jogo {
     private String plataforma;
     private double nota;
 
+    public Jogo(){
+
+    }
+
     public Jogo(Long id, String titulo, String plataforma, double nota) {
         this.id = id;
         this.titulo = titulo;
