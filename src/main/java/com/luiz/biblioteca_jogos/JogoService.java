@@ -1,8 +1,6 @@
 package com.luiz.biblioteca_jogos;
 
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +8,11 @@ import java.util.List;
 @Service
 public class JogoService {
 
+    //CRIA A LISTA
+
     private List<Jogo> jogos = new ArrayList<>();
+
+    //CRIA INFORMAÇÕES INICIAIS DA LISTA
 
     public JogoService() {
         Jogo jogo1 = new Jogo(1L, "HK", "PS4", 10);
@@ -22,6 +24,8 @@ public class JogoService {
         jogos.add(jogo3);
 
     }
+
+    //METODOS CRUD
 
     public List<Jogo> listar() {
         return jogos;
@@ -37,18 +41,15 @@ public class JogoService {
     }
 
     public Jogo adicionar(Jogo novoJogo) {
-        if (novoJogo.getNota() < 0 || novoJogo.getNota() > 10) {
-            throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
-        }
+        validarNota(novoJogo);
         jogos.add(novoJogo);
         return novoJogo;
     }
 
     public Jogo atualizar(Long id, Jogo dadosNovos) {
+        validarNota(dadosNovos);
         for (Jogo jogo : jogos) {
-            if (jogo.getNota() < 0 || jogo.getNota() > 10) {
-                throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
-            }
+
 
             if (jogo.getId().equals(id)) {
                 jogo.setTitulo(dadosNovos.getTitulo());
@@ -62,8 +63,18 @@ public class JogoService {
         return null;
     }
 
-    public void deletar(Long id){
+
+    public void deletar(Long id) {
         jogos.removeIf(jogo -> jogo.getId().equals(id));
     }
+
+    //METODO INTERNO - VALIDA NOTA
+
+    private static void validarNota(Jogo jogo) {
+        if (jogo.getNota() < 0 || jogo.getNota() > 10) {
+            throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
+        }
+    }
+
 
 }
