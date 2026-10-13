@@ -40,15 +40,15 @@ public class JogoController {
     }
 
     @PostMapping("/jogos")
-    public Jogo adicionarJogo(@RequestBody Jogo novoJogo){
+    public Jogo adicionarJogo(@RequestBody Jogo novoJogo) {
         jogos.add(novoJogo);
         return novoJogo;
     }
 
     @PutMapping("/jogos/{id}")
-    public Jogo atualizarJogo(@PathVariable Long id, @RequestBody Jogo dadosNovos){
+    public Jogo atualizarJogo(@PathVariable Long id, @RequestBody Jogo dadosNovos) {
         for (Jogo jogo : jogos) {
-            if(jogo.getId().equals(id)){
+            if (jogo.getId().equals(id)) {
                 jogo.setTitulo(dadosNovos.getTitulo());
                 jogo.setPlataforma(dadosNovos.getPlataforma());
                 jogo.setNota(dadosNovos.getNota());
@@ -60,5 +60,9 @@ public class JogoController {
         return null;
     }
 
+    @DeleteMapping("/jogos/{id}")
+    public void deletarJogo(@PathVariable Long id) {
+        jogos.removeIf(jogo -> jogo.getId().equals(id));
+    }
 
 }
