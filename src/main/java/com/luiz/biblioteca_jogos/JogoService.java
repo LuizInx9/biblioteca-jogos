@@ -14,8 +14,8 @@ public class JogoService {
 
     public JogoService() {
         Jogo jogo1 = new Jogo(1L, "HK", "PS4", 10);
-        Jogo jogo2 = new Jogo(2L, "HK: Silksong", "PC", 10);
-        Jogo jogo3 = new Jogo(3L, "Coffee Talk", "PS4", 9);
+        Jogo jogo2 = new Jogo(2L, "HK: Silksong", "PC", 9);
+        Jogo jogo3 = new Jogo(3L, "Coffee Talk", "PS4", 10);
 
         jogos.add(jogo1);
         jogos.add(jogo2);
@@ -37,12 +37,19 @@ public class JogoService {
     }
 
     public Jogo adicionar(Jogo novoJogo) {
+        if (novoJogo.getNota() < 0 || novoJogo.getNota() > 10) {
+            throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
+        }
         jogos.add(novoJogo);
         return novoJogo;
     }
 
     public Jogo atualizar(Long id, Jogo dadosNovos) {
         for (Jogo jogo : jogos) {
+            if (jogo.getNota() < 0 || jogo.getNota() > 10) {
+                throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
+            }
+
             if (jogo.getId().equals(id)) {
                 jogo.setTitulo(dadosNovos.getTitulo());
                 jogo.setPlataforma(dadosNovos.getPlataforma());
