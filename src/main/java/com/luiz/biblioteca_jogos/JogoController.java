@@ -45,5 +45,20 @@ public class JogoController {
         return novoJogo;
     }
 
+    @PutMapping("/jogos/{id}")
+    public Jogo atualizarJogo(@PathVariable Long id, @RequestBody Jogo dadosNovos){
+        for (Jogo jogo : jogos) {
+            if(jogo.getId().equals(id)){
+                jogo.setTitulo(dadosNovos.getTitulo());
+                jogo.setPlataforma(dadosNovos.getPlataforma());
+                jogo.setNota(dadosNovos.getNota());
+                return jogo;
+
+            }
+
+        }
+        return null;
+    }
+
 
 }
