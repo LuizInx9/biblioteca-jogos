@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class OlaController {
     @GetMapping("/ola")
     public String dizerOla(){
-        return "Bem vindo a biblioteca de jogos";
+        return "Bem vindo à biblioteca de jogos";
     }
 
 }

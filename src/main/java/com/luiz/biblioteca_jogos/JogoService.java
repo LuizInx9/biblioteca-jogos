@@ -37,7 +37,7 @@ public class JogoService {
                 return jogo;
             }
         }
-        return null;
+        throw new JogoNaoEncontradoException(id);
     }
 
     public Jogo adicionar(Jogo novoJogo) {
@@ -60,12 +60,15 @@ public class JogoService {
             }
 
         }
-        return null;
+        throw new JogoNaoEncontradoException(id);
     }
 
 
     public void deletar(Long id) {
-        jogos.removeIf(jogo -> jogo.getId().equals(id));
+        boolean removido = jogos.removeIf(jogo -> jogo.getId().equals(id));
+        if(!removido){
+            throw new JogoNaoEncontradoException(id);
+        }
     }
 
     //METODO INTERNO - VALIDA NOTA
