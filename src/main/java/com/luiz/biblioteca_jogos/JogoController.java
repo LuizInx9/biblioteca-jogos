@@ -1,8 +1,8 @@
 package com.luiz.biblioteca_jogos;
 
-import java.util.List;
-
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 public class JogoController {
@@ -33,19 +33,19 @@ public class JogoController {
     public Jogo adicionar(@RequestBody Jogo novoJogo) {
         return jogoService.adicionar(novoJogo);
     }
-//
-//    //ATUALIZA INFORMAÇÔES DE JOGO EXISTENTE
-//
-//    @PutMapping("/jogos/{id}")
-//    public Jogo atualizar(@PathVariable Long id, @RequestBody Jogo novasInfos) {
-//        return jogoService.atualizar(id, novasInfos);
-//    }
-//
-//    //DELETA JOGO
-//
-//    @DeleteMapping("/jogos/{id}")
-//    public void deletar(@PathVariable Long id) {
-//        jogoService.deletar(id);
-//    }
+
+    //ATUALIZA INFORMAÇÔES DE JOGO EXISTENTE
+
+    @PutMapping("/jogos/{id}")
+    public Jogo atualizar(@PathVariable Long id, @RequestBody Jogo novasInfos) {
+        return jogoService.atualizar(id, novasInfos);
+    }
+
+    //DELETA JOGO
+
+    @DeleteMapping("/jogos/{id}")
+    public void deletar(@PathVariable Long id) {
+        jogoService.deletar(id);
+    }
 
 }

@@ -1,6 +1,7 @@
 package com.luiz.biblioteca_jogos;
 
 import org.springframework.stereotype.Service;
+
 import java.util.List;
 
 @Service
@@ -15,44 +16,36 @@ public class JogoService {
 
     //METODOS CRUD
 
-    public List<Jogo> listar(){
+    public List<Jogo> listar() {
         return jogoRepository.findAll();
     }
 
     public Jogo buscarPorId(Long id) {
         return jogoRepository.findById(id)
-        .orElseThrow(() -> new JogoNaoEncontradoException(id));
+                .orElseThrow(() -> new JogoNaoEncontradoException(id));
     }
 
     public Jogo adicionar(Jogo novoJogo) {
         validarNota(novoJogo);
+        novoJogo.setId(null);
         return jogoRepository.save(novoJogo);
     }
-//
-//    public Jogo atualizar(Long id, Jogo dadosNovos) {
-//        validarNota(dadosNovos);
-//        for (Jogo jogo : jogos) {
-//
-//
-//            if (jogo.getId().equals(id)) {
-//                jogo.setTitulo(dadosNovos.getTitulo());
-//                jogo.setPlataforma(dadosNovos.getPlataforma());
-//                jogo.setNota(dadosNovos.getNota());
-//                return jogo;
-//
-//            }
-//
-//        }
-//        throw new JogoNaoEncontradoException(id);
-//    }
-//
-//
-//    public void deletar(Long id) {
-//        boolean removido = jogos.removeIf(jogo -> jogo.getId().equals(id));
-//        if(!removido){
-//            throw new JogoNaoEncontradoException(id);
-//        }
-//    }
+
+    public Jogo atualizar(Long id, Jogo dadosNovos) {
+        validarNota(dadosNovos);
+        Jogo jogo = buscarPorId(id);
+        jogo.setTitulo(dadosNovos.getTitulo());
+        jogo.setPlataforma(dadosNovos.getPlataforma());
+        jogo.setNota(dadosNovos.getNota());
+        return jogoRepository.save(jogo);
+    }
+
+    public void deletar(Long id) {
+        if (!jogoRepository.existsById(id)) {
+            throw new JogoNaoEncontradoException(id);
+        }
+        jogoRepository.deleteById(id);
+    }
 
     //METODO INTERNO - VALIDA NOTA
 

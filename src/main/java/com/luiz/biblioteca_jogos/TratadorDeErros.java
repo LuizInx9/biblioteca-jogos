@@ -18,7 +18,7 @@ public class TratadorDeErros {
 
     @ExceptionHandler(IllegalArgumentException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public Map<String, String> notaInvalida(IllegalArgumentException e){
+    public Map<String, String> notaInvalida(IllegalArgumentException e) {
         return Map.of("erro", e.getMessage());
     }
 
