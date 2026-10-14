@@ -1,12 +1,22 @@
 package com.luiz.biblioteca_jogos;
 
+import jakarta.persistence.*;
+
+@Entity
+@Table(name = "jogos")
+
 public class Jogo {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     private Long id;
+
     private String titulo;
     private String plataforma;
     private double nota;
 
-    public Jogo(){
+    public Jogo() {
 
     }
 
