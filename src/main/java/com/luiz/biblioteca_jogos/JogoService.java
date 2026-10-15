@@ -26,13 +26,11 @@ public class JogoService {
     }
 
     public Jogo adicionar(JogoRequest novoJogo) {
-        validarNota(novoJogo);
         Jogo jogo = new Jogo(null, novoJogo.titulo(), novoJogo.plataforma(), novoJogo.nota());
         return jogoRepository.save(jogo);
     }
 
     public Jogo atualizar(Long id, JogoRequest dadosNovos) {
-        validarNota(dadosNovos);
         Jogo jogo = buscarPorId(id);
         jogo.setTitulo(dadosNovos.titulo());
         jogo.setPlataforma(dadosNovos.plataforma());
@@ -46,14 +44,5 @@ public class JogoService {
         }
         jogoRepository.deleteById(id);
     }
-
-    //METODO INTERNO - VALIDA NOTA
-
-    private static void validarNota(JogoRequest request) {
-        if (request.nota() < 0 || request.nota() > 10) {
-            throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
-        }
-    }
-
 
 }
