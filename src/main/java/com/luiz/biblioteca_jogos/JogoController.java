@@ -1,5 +1,6 @@
 package com.luiz.biblioteca_jogos;
 
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,14 +31,14 @@ public class JogoController {
     //INSERE NOVO JOGO NA LISTA
 
     @PostMapping("/jogos")
-    public Jogo adicionar(@RequestBody Jogo novoJogo) {
+    public Jogo adicionar(@Valid @RequestBody JogoRequest novoJogo) {
         return jogoService.adicionar(novoJogo);
     }
 
     //ATUALIZA INFORMAÇÔES DE JOGO EXISTENTE
 
     @PutMapping("/jogos/{id}")
-    public Jogo atualizar(@PathVariable Long id, @RequestBody Jogo novasInfos) {
+    public Jogo atualizar(@PathVariable Long id, @Valid @RequestBody JogoRequest novasInfos) {
         return jogoService.atualizar(id, novasInfos);
     }
 

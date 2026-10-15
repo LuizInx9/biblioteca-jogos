@@ -25,18 +25,18 @@ public class JogoService {
                 .orElseThrow(() -> new JogoNaoEncontradoException(id));
     }
 
-    public Jogo adicionar(Jogo novoJogo) {
+    public Jogo adicionar(JogoRequest novoJogo) {
         validarNota(novoJogo);
-        novoJogo.setId(null);
-        return jogoRepository.save(novoJogo);
+        Jogo jogo = new Jogo(null, novoJogo.titulo(), novoJogo.plataforma(), novoJogo.nota());
+        return jogoRepository.save(jogo);
     }
 
-    public Jogo atualizar(Long id, Jogo dadosNovos) {
+    public Jogo atualizar(Long id, JogoRequest dadosNovos) {
         validarNota(dadosNovos);
         Jogo jogo = buscarPorId(id);
-        jogo.setTitulo(dadosNovos.getTitulo());
-        jogo.setPlataforma(dadosNovos.getPlataforma());
-        jogo.setNota(dadosNovos.getNota());
+        jogo.setTitulo(dadosNovos.titulo());
+        jogo.setPlataforma(dadosNovos.plataforma());
+        jogo.setNota(dadosNovos.nota());
         return jogoRepository.save(jogo);
     }
 
@@ -49,8 +49,8 @@ public class JogoService {
 
     //METODO INTERNO - VALIDA NOTA
 
-    private static void validarNota(Jogo jogo) {
-        if (jogo.getNota() < 0 || jogo.getNota() > 10) {
+    private static void validarNota(JogoRequest request) {
+        if (request.nota() < 0 || request.nota() > 10) {
             throw new IllegalArgumentException("Nota deve estar entre 0 e 10");
         }
     }
